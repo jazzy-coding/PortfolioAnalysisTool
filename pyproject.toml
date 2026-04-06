@@ -8,5 +8,6 @@ dependencies = [
     "black>=26.3.1",
     "polars>=1.39.3",
     "pytest>=9.0.2",
+    "spyder-kernels==3.1.*",
     "yfinance>=1.2.0",
 ]
