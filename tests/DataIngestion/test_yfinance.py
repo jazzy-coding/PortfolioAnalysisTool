@@ -1,6 +1,7 @@
 """Unit tests for yfinance.py script"""
 
 import datetime as dt
+import pytest
 from unittest.mock import patch
 import pandas as pd
 
@@ -22,7 +23,7 @@ def test_get_market_data():
 
     # act
     with patch(
-        "yfinance.download", return_value=mock_df
+        "src.DataIngestion.yfinance.yf.download", return_value=mock_df
     ) as mock_download:
 
         result = get_market_data(
@@ -35,3 +36,19 @@ def test_get_market_data():
     )
 
     assert result is mock_df
+
+
+def test_get_market_data_no_tickers():
+    """Test 'get_market_data' with no tickers."""
+    # arrange
+    tickers = []
+    start_date = dt.date.today() - dt.timedelta(days=365)
+    end_date = dt.date.today()
+    mock_df = pd.DataFrame()
+
+    # act and assert
+    with patch(
+        "src.DataIngestion.yfinance.yf.download", side_effect=ValueError
+    ) as mock_download:
+        with pytest.raises(ValueError):
+            get_market_data(tickers=tickers, start_date=start_date, end_date=end_date)
