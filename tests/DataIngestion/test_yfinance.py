@@ -53,7 +53,7 @@ def test_get_market_data_no_tickers():
 def test_get_market_data_invalid_dates():
     """Test 'get_market_data' function with invalid dates."""
     # arrange
-    tickers = ['VUSA.L', 'VUKG.L']
+    tickers = ["VUSA.L", "VUKG.L"]
     start_date = dt.date.today()
     end_date = dt.date.today() - dt.timedelta(days=365)
 
