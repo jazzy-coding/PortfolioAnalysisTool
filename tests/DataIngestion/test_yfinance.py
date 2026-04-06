@@ -46,11 +46,8 @@ def test_get_market_data_no_tickers():
     end_date = dt.date.today()
 
     # act and assert
-    with patch(
-        "src.DataIngestion.yfinance.yf.download", side_effect=ValueError
-    ):
-        with pytest.raises(ValueError, match="Tickers must not be empty."):
-            get_market_data(tickers=tickers, start_date=start_date, end_date=end_date)
+    with pytest.raises(ValueError, match="Tickers must not be empty."):
+        get_market_data(tickers=tickers, start_date=start_date, end_date=end_date)
 
 
 def test_get_market_data_invalid_dates():
@@ -61,8 +58,5 @@ def test_get_market_data_invalid_dates():
     end_date = dt.date.today() - dt.timedelta(days=365)
 
     # act and assert
-    with patch(
-        "src.DataIngestion.yfinance.yf.download", side_effect=ValueError
-    ):
-        with pytest.raises(ValueError, match="Start date must be before end date."):
-            get_market_data(tickers=tickers, start_date=start_date, end_date=end_date)
+    with pytest.raises(ValueError, match="Start date must be before end date."):
+        get_market_data(tickers=tickers, start_date=start_date, end_date=end_date)
